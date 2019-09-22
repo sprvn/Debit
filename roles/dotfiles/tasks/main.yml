@@ -1,13 +1,13 @@
 ---
 
 - name: Clone dotfiles
-  git: repo={{ dotfiles_path }} dest=/home/{{ user.name }}/dotfiles
+  git: repo={{ dotfiles_path }} dest=/home/{{ username }}/dotfiles
 
 - name: Symlink dotfiles to home
   file: 
-    src: /home/{{ user.name }}/dotfiles/{{ item }}
-    dest: /home/{{ user.name }}/{{ item }} 
-    owner: "{{ user.name }}"
-    group: "{{ user.name }}"
+    src: /home/{{ username }}/dotfiles/{{ item }}
+    dest: /home/{{ username }}/{{ item }} 
+    owner: "{{ username }}"
+    group: "{{ username }}"
     state: link
   with_items: "{{ dotfiles }}"

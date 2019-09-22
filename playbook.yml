@@ -9,3 +9,7 @@
     - { role: fonts, tags: ['fonts'] }
     - { role: terminal, tags: ['terminal'] }
 
+  vars_prompt:
+    - name: "username"
+      prompt: "Username"
+      private: no

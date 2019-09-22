@@ -1,15 +1,15 @@
 ---
 
 - name: Install gnome-terminal
-  pacman: name=gnome-terminal state=present
+  apt: name=gnome-terminal state=present update_cache=yes
   tags:
     - gnome-terminal
 
 - name: Install bash-completion
-  pacman: name=bash-completion state=present
+  apt: name=bash-completion state=present update_cache=yes
 
 - name: Copy gnome.conf
-  copy: src=gnome.conf dest=/tmp/ owner={{ user.name }} group={{ user.group }}
+  copy: src=gnome.conf dest=/tmp/ owner={{ username }} group={{ username }}
   tags:
     - gnome-terminal
 
@@ -17,7 +17,7 @@
 - name: Push gnome-terminal config
   shell: dbus-launch dconf load /org/gnome/terminal/ < /tmp/gnome.conf
   become: yes
-  become_user: "{{ user.name }}"
+  become_user: "{{ username }}"
   tags:
     - gnome-terminal
 
