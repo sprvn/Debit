@@ -1,4 +1,4 @@
-# Arcit
+# Debit
 
 ## Prerequisite
 
