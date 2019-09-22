@@ -1,0 +1,49 @@
+---
+
+- name: Install i3 dependencies
+  apt: name={{ item }} state=present update_cache=yes
+  with_items: "{{ i3_packages }}"
+  when: item > 0
+  tags:
+    - i3
+
+- name: Create i3 source directory
+  file:
+    path: ~/i3-source
+    state: directory
+    mode: '0755'
+  tags:
+    - i3
+
+      #- name: Clone i3 repository 
+      #  git:
+      #    repo: 'https://github.com/Airblader/i3.git'
+      #    dest: ~/i3-source
+      #    version: 4.17.1
+      #
+
+- name: Clone i3 repository 
+  shell: git clone --single-branch --branch gaps https://github.com/Airblader/i3.git ~/i3-source
+
+- name: Autoreconf i3
+  shell: autoreconf --force --install
+  args:
+    chdir: ~/i3-source
+
+- name: Create build directory
+  file:
+    path: ~/i3-source/build
+    state: directory
+    mode: '0755'
+  tags:
+    - i3
+
+- name: Configure i3
+  shell: ~/i3-source/configure --prefix=/usr --sysconfdir=/etc
+  args:
+    chdir: ~/i3-source/build
+
+- name: Compile i3
+  shell: make && make install
+  args:
+    chdir: ~/i3-source/build

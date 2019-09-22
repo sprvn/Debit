@@ -1,0 +1,23 @@
+---
+
+- name: Install gnome-terminal
+  pacman: name=gnome-terminal state=present
+  tags:
+    - gnome-terminal
+
+- name: Install bash-completion
+  pacman: name=bash-completion state=present
+
+- name: Copy gnome.conf
+  copy: src=gnome.conf dest=/tmp/ owner={{ user.name }} group={{ user.group }}
+  tags:
+    - gnome-terminal
+
+# dbus-launch because there are no active sessions running for the created user, thus a bus has to be created
+- name: Push gnome-terminal config
+  shell: dbus-launch dconf load /org/gnome/terminal/ < /tmp/gnome.conf
+  become: yes
+  become_user: "{{ user.name }}"
+  tags:
+    - gnome-terminal
+

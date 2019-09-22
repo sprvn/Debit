@@ -1,0 +1,40 @@
+packages:
+  - vim
+  - git
+  - compton
+  - feh
+  - firejail
+  - htop
+  - i3lock
+  - rofi
+  - ttf-dejavu
+  - py3status
+
+i3_packages:
+  - libxcb1-dev
+  - libxcb-keysyms1-dev
+  - libpango1.0-dev
+  - libxcb-util0-dev
+  - libxcb-icccm4-dev
+  - libyajl-dev
+  - libstartup-notification0-dev
+  - libxcb-randr0-dev
+  - libev-dev
+  - libxcb-cursor-dev
+  - libxcb-xinerama0-dev
+  - libxcb-xkb-dev
+  - libxkbcommon-dev
+  - libxkbcommon-x11-dev
+  - autoconf
+  - xutils-dev
+  - libtool 
+  - libxcb-xrm-dev
+  - libxcb-shape0-dev
+
+dotfiles_path: https://github.com/sprvn/dotfiles
+
+dotfiles:
+  - .i3
+  - .vim
+  - .vimrc
+

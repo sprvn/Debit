@@ -1,0 +1,11 @@
+---
+- hosts: localhost
+  become: yes
+  roles:
+    - { role: base, tags: ['base'] }
+    - { role: i3, tags: ['i3'] }
+      #- { role: images, tags: ['images'] }
+    - { role: dotfiles, tags: ['dotfiles'] }
+    - { role: fonts, tags: ['fonts'] }
+    - { role: terminal, tags: ['terminal'] }
+
