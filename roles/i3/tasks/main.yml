@@ -1,9 +1,11 @@
 ---
 
 - name: Install i3 dependencies
-  apt: name={{ item }} state=present update_cache=yes
-  with_items: "{{ i3_packages }}"
-  when: item > 0
+  apt: 
+    name: "{{ i3_packages }}"
+    state: present
+    update_cache: yes
+    install_recommends: false
   tags:
     - i3
 
@@ -24,6 +26,7 @@
 
 - name: Clone i3 repository 
   shell: git clone --single-branch --branch gaps https://github.com/Airblader/i3.git ~/i3-source
+  failed_when: false
 
 - name: Autoreconf i3
   shell: autoreconf --force --install
@@ -37,6 +40,12 @@
     mode: '0755'
   tags:
     - i3
+
+- name: Installe make
+  apt:
+    name: make
+    state: present
+    install_recommends: false
 
 - name: Configure i3
   shell: ~/i3-source/configure --prefix=/usr --sysconfdir=/etc

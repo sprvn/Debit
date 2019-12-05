@@ -1,17 +1,32 @@
 ---
 
 - name: Install gnome-terminal
-  apt: name=gnome-terminal state=present update_cache=yes
+  apt:
+    name: gnome-terminal
+    state: present
+    update_cache: yes
+    install_recommends: false
   tags:
     - gnome-terminal
 
 - name: Install bash-completion
-  apt: name=bash-completion state=present update_cache=yes
+  apt:
+    name: bash-completion
+    state: present
+    update_cache: yes
+    install_recommends: false
 
 - name: Copy gnome.conf
   copy: src=gnome.conf dest=/tmp/ owner={{ username }} group={{ username }}
   tags:
     - gnome-terminal
+
+- name: Install dconf-cli
+  apt:
+    name: dconf-cli
+    state: present
+    update_cache: yes
+    install_recommends: false
 
 # dbus-launch because there are no active sessions running for the created user, thus a bus has to be created
 - name: Push gnome-terminal config

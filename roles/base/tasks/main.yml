@@ -1,8 +1,10 @@
 ---
 
 - name: Install packages
-  apt: name={{ item }} state=present update_cache=yes
-  with_items: "{{ packages }}"
-  when: item > 0
+  apt:
+    name: "{{ packages }}"
+    state: present
+    update_cache: yes
+    install_recommends: false
   tags:
     - packages

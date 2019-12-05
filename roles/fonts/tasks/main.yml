@@ -1,7 +1,7 @@
 ---
 
 - name: Create .fonts
-  file: path=/home/{{ username }}/.fonts state=directory owner={{ username }} group={{ username }} 
+  file: path={{ home }}{{ username }}/.fonts state=directory owner={{ username }} group={{ username }} 
 
 - name: Create temporary directory
   file: path=/tmp/fonts state=directory
@@ -10,13 +10,13 @@
   git: repo=https://github.com/supermarin/YosemiteSanFranciscoFont.git dest=/tmp/fonts
 
 - name: Copying fonts to .fonts
-  shell: cp /tmp/fonts/*.ttf /home/{{ username }}/.fonts
+  shell: cp /tmp/fonts/*.ttf {{ home }}{{ username }}/.fonts
 
 - name: Pull Font-Awesome font
   git: repo=https://github.com/FortAwesome/Font-Awesome.git dest=/tmp/fonts
 
 - name: Copying fonts to .fonts
-  shell: cp /tmp/fonts/webfonts/*.ttf /home/{{ username }}/.fonts
+  shell: cp /tmp/fonts/webfonts/*.ttf {{ home }}{{ username }}/.fonts
 
 - name: Permissions
-  file: path=/home/{{ username }}/.fonts state=directory owner={{ username }} group={{ username }} recurse=yes
+  file: path={{ home }}{{ username }}/.fonts state=directory owner={{ username }} group={{ username }} recurse=yes

@@ -1,8 +1,8 @@
 ---
 
-- name: Check if /home/{{ user.name }}/Pictures exists
+- name: Check if {{ home }}{{ user.name }}/Pictures exists
   file:
-     path: /home/{{ user.name }}/Pictures
+     path: {{ home }}{{ user.name }}/Pictures
      owner: "{{ user.name }}"
      group: "{{ user.group }}"
      state: directory
@@ -10,7 +10,7 @@
 - name: Download wallpaper
   get_url:
     url: "{{ images.wallpaper }}"
-    dest: /home/{{ user.name }}/Pictures/wallpaper
+    dest: {{ home }}{{ user.name }}/Pictures/wallpaper
     owner: "{{ user.name }}"
     group: "{{ user.group }}"
     #validate_certs: False
@@ -18,7 +18,7 @@
 - name: Download lockscreen
   get_url:
     url: "{{ images.lockscreen }}"
-    dest: /home/{{ user.name }}/Pictures/lockscreen
+    dest: {{ home }}{{ user.name }}/Pictures/lockscreen
     owner: "{{ user.name }}"
     group: "{{ user.group }}"
     #validate_certs: False
@@ -31,7 +31,7 @@
 - name: Convert wallpaper to PNG
   shell: convert wallpaper wallpaper.png
   args:
-    chdir: "/home/{{ user.name }}/Pictures"
+    chdir: "{{ home }}{{ user.name }}/Pictures"
   ignore_errors: yes
   tags:
     - imagemagick
@@ -39,15 +39,15 @@
 - name: Convert lockscreen to PNG
   shell: convert lockscreen lockscreen.png
   args:
-    chdir: "/home/{{ user.name }}/Pictures"
+    chdir: "{{ home }}{{ user.name }}/Pictures"
   ignore_errors: yes
   tags:
     - imagemagick
 
 - name: Move wallpaper
   copy: 
-    src: "/home/{{ user.name }}/Pictures/wallpaper.png" 
-    dest: "/home/{{ user.name }}/Pictures/wallpaper" 
+    src: "{{ home }}{{ user.name }}/Pictures/wallpaper.png" 
+    dest: "{{ home }}{{ user.name }}/Pictures/wallpaper" 
     owner: "{{ user.name }}"
     group: "{{ user.group }}"
   tags:
@@ -55,15 +55,15 @@
 
 - name: Delete old wallpaper
   file: 
-    path: "/home/{{ user.name }}/Pictures/wallpaper.png" 
+    path: "{{ home }}{{ user.name }}/Pictures/wallpaper.png" 
     state: absent
   tags:
     - imagemagick
 
 - name: Move lockscreen
   copy: 
-    src: "/home/{{ user.name }}/Pictures/lockscreen.png" 
-    dest: "/home/{{ user.name }}/Pictures/lockscreen"
+    src: "{{ home }}{{ user.name }}/Pictures/lockscreen.png" 
+    dest: "{{ home }}{{ user.name }}/Pictures/lockscreen"
     owner: "{{ user.name }}"
     group: "{{ user.group }}"
   tags:
@@ -71,7 +71,7 @@
 
 - name: Delete old wallpaper
   file: 
-    path: "/home/{{ user.name }}/Pictures/lockscreen.png" 
+    path: "{{ home }}{{ user.name }}/Pictures/lockscreen.png" 
     state: absent
   tags:
     - imagemagick
