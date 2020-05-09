@@ -26,6 +26,7 @@ i3_packages:
   - libxkbcommon-dev
   - libxkbcommon-x11-dev
   - autoconf
+  - automake
   - xutils-dev
   - libtool 
   - libxcb-xrm-dev
